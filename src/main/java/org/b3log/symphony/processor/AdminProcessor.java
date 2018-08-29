@@ -119,7 +119,7 @@ import java.util.*;
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
  * @author Bill Ho
  * @author <a href="http://vanessa.b3log.org">Liyuan Li</a>
- * @version 2.29.0.2, Aug 20, 2018
+ * @version 2.29.0.5, Aug 28, 2018
  * @since 1.1.0
  */
 @RequestProcessor
@@ -138,7 +138,7 @@ public class AdminProcessor {
     /**
      * Pagination page size.
      */
-    private static final int PAGE_SIZE = 20;
+    private static final int PAGE_SIZE = 60;
 
     /**
      * Language service.
@@ -2039,6 +2039,8 @@ public class AdminProcessor {
         article = articleQueryService.getArticle(articleId);
         dataModel.put(Article.ARTICLE, article);
 
+        updateArticleSearchIndex(article);
+
         dataModelService.fillHeaderAndFooter(request, response, dataModel);
     }
 
@@ -2155,7 +2157,7 @@ public class AdminProcessor {
             }
         }
 
-        commentMgmtService.updateComment(commentId, comment);
+        commentMgmtService.updateCommentByAdmin(commentId, comment);
 
         comment = commentQueryService.getComment(commentId);
         dataModel.put(Comment.COMMENT, comment);
@@ -2808,6 +2810,12 @@ public class AdminProcessor {
         final String articleId = context.getRequest().getParameter(Article.ARTICLE_T_ID);
         final JSONObject article = articleQueryService.getArticle(articleId);
 
+        updateArticleSearchIndex(article);
+
+        context.getResponse().sendRedirect(Latkes.getServePath() + "/admin/articles");
+    }
+
+    private void updateArticleSearchIndex(final JSONObject article) {
         if (null == article || Article.ARTICLE_TYPE_C_DISCUSSION == article.optInt(Article.ARTICLE_TYPE)
                 || Article.ARTICLE_TYPE_C_THOUGHT == article.optInt(Article.ARTICLE_TYPE)) {
             return;
@@ -2815,18 +2823,13 @@ public class AdminProcessor {
 
         if (Symphonys.getBoolean("algolia.enabled")) {
             searchMgmtService.updateAlgoliaDocument(article, true);
-
-            final String articlePermalink = Latkes.getServePath() + article.optString(Article.ARTICLE_PERMALINK);
-            ArticleBaiduSender.sendToBaidu(articlePermalink);
         }
 
         if (Symphonys.getBoolean("es.enabled")) {
             searchMgmtService.updateESDocument(article, Article.ARTICLE);
-
-            final String articlePermalink = Latkes.getServePath() + article.optString(Article.ARTICLE_PERMALINK);
-            ArticleBaiduSender.sendToBaidu(articlePermalink);
         }
 
-        context.getResponse().sendRedirect(Latkes.getServePath() + "/admin/articles");
+        final String articlePermalink = Latkes.getServePath() + article.optString(Article.ARTICLE_PERMALINK);
+        ArticleBaiduSender.sendToBaidu(articlePermalink);
     }
 }

@@ -32,6 +32,7 @@ import org.b3log.latke.util.Stopwatchs;
 import org.b3log.symphony.SymphonyServletListener;
 import org.b3log.symphony.cache.DomainCache;
 import org.b3log.symphony.model.*;
+import org.b3log.symphony.util.Markdowns;
 import org.b3log.symphony.util.Sessions;
 import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
@@ -44,7 +45,7 @@ import java.util.*;
  * Data model service.
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @version 1.12.2.34, Apr 3, 2018
+ * @version 1.12.2.35, Aug 20, 2018
  * @since 0.2.0
  */
 @Service
@@ -299,12 +300,13 @@ public class DataModelService {
         fillSysInfo(dataModel);
 
         dataModel.put(Common.YEAR, String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
-        dataModel.put(Common.SITE_VISIT_STAT_CODE, Symphonys.get("siteVisitStatCode"));
+        dataModel.put(Common.SITE_VISIT_STAT_CODE, Symphonys.get(Common.SITE_VISIT_STAT_CODE));
         dataModel.put(Common.MOUSE_EFFECTS, RandomUtils.nextDouble() > 0.95);
         dataModel.put(Common.MACRO_HEAD_PC_CODE, Symphonys.get(Common.MACRO_HEAD_PC_CODE));
         dataModel.put(Common.MACRO_HEAD_MOBILE_CODE, Symphonys.get(Common.MACRO_HEAD_MOBILE_CODE));
         dataModel.put(Common.FOOTER_PC_CODE, Symphonys.get(Common.FOOTER_PC_CODE));
         dataModel.put(Common.FOOTER_MOBILE_CODE, Symphonys.get(Common.FOOTER_MOBILE_CODE));
+        dataModel.put(Common.FOOTER_BEI_AN_HAO, Symphonys.get(Common.FOOTER_BEI_AN_HAO));
     }
 
     /**
@@ -335,6 +337,7 @@ public class DataModelService {
         }
 
         dataModel.put(Common.WEBSOCKET_SCHEME, Symphonys.get("websocket.scheme"));
+        dataModel.put(Common.MARKED_AVAILABLE, Markdowns.MARKED_AVAILABLE);
     }
 
     /**

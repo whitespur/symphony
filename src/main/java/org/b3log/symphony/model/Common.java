@@ -21,7 +21,7 @@ package org.b3log.symphony.model;
  * This class defines all common model relevant keys.
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @version 1.71.0.1, Jul 31, 2018
+ * @version 1.73.0.0, Aug 29, 2018
  * @since 0.2.0
  */
 public final class Common {
@@ -162,11 +162,6 @@ public final class Common {
     public static final String TIMEZONES = "timezones";
 
     /**
-     * Key of forge.
-     */
-    public static final String FORGE = "forge";
-
-    /**
      * Key of selected.
      */
     public static final String SELECTED = "selected";
@@ -290,6 +285,11 @@ public final class Common {
      * Key of CSRF token.
      */
     public static final String CSRF_TOKEN = "csrfToken";
+
+    /**
+     * Key of marked engine available.
+     */
+    public static final String MARKED_AVAILABLE = "markedAvailable";
 
     /**
      * Key of city.
@@ -822,6 +822,11 @@ public final class Common {
     public static final String FOOTER_MOBILE_CODE = "footerMobileCode";
 
     /**
+     * Key of footer bei an hao.
+     */
+    public static final String FOOTER_BEI_AN_HAO = "footerBeiAnHao";
+
+    /**
      * Key of online visitor count.
      */
     public static final String ONLINE_VISITOR_CNT = "onlineVisitorCnt";
@@ -925,6 +930,16 @@ public final class Common {
      * Key of top checkin users.
      */
     public static final String TOP_CHECKIN_USERS = "topCheckinUsers";
+
+    /**
+     * Key of top links.
+     */
+    public static final String TOP_LINKS = "topLinks";
+
+    /**
+     * Key of top.
+     */
+    public static final String TOP = "top";
 
     /**
      * Private constructor.

@@ -20,20 +20,26 @@
 <div class="footer">
     <div class="wrapper ft-smaller">
         <div class="footer-nav">
-            <span>&COPY; ${year}</span>
             <a rel="copyright" href="https://hacpai.com" target="_blank">hacpai.com</a>
-            ${visionLabel}
+        ${visionLabel}
         </div>
         <div class="fn-hr5"></div>
         <div>
-            ${sloganLabel}
+        ${sloganLabel}
         </div>
         <div class="fn-hr5"></div>
         <div>
-            <span>Powered by <a href="https://b3log.org" target="_blank">B3log 开源</a> •
-                <a href="https://sym.b3log.org" target="_blank">Sym</a>
-                ${version} • ${elapsed?c}ms</span>
+            © ${year} <a href="https://b3log.org" target="_blank">B3log 开源</a>旗下云南链滴科技有限公司版权所有
+            <div class="fn-hr5"></div>
+            <a href="https://sym.b3log.org" target="_blank">Sym</a>
+        ${version} • ${elapsed?c}ms
         </div>
+         <#if footerBeiAnHao != ''>
+             <div class="fn-hr5"></div>
+             <div>
+                 <a href="http://www.miitbeian.gov.cn/" target="_blank">${footerBeiAnHao}</a>
+             </div>
+         </#if>
     </div>
 </div>
 <script src="${staticServePath}/js/symbol-defs${miniPostfix}.js?${staticResourceVersion}"></script>
@@ -72,18 +78,18 @@
          <#if csrfToken??>,
             csrfToken: '${csrfToken}'
          </#if>
-    };
-    Util.init(${isLoggedIn?c});
+    }
+    Util.init(${isLoggedIn?c})
     
     <#if isLoggedIn>
     // Init [User] channel
-    Util.initUserChannel("${wsScheme}://${serverHost}:${serverPort}${contextPath}/user-channel");
+    Util.initUserChannel("${wsScheme}://${serverHost}:${serverPort}${contextPath}/user-channel")
     </#if>
 </script>
 <#if algoliaEnabled>
 <script src="${staticServePath}/js/lib/algolia/algolia.min.js"></script>
 <script>
-    Util.initSearch('${algoliaAppId}', '${algoliaSearchKey}', '${algoliaIndex}');
+    Util.initSearch('${algoliaAppId}', '${algoliaSearchKey}', '${algoliaIndex}')
 </script>
 </#if>
 ${footerMobileCode}
